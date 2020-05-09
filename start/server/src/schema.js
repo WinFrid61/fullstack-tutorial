@@ -1,7 +1,13 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-  # Your schema will go here
+  type Launch {
+  id: ID!
+  site: String
+  mission: Mission
+  rocket: Rocket
+  isBooked: Boolean!
+}
 `;
 
 module.exports = typeDefs;
