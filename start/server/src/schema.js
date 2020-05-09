@@ -22,7 +22,7 @@ const typeDefs = gql`
 
   type Mission {
     name: String
-    missionPatch(size: PatchSize): String
+    missionPatch(mission: String, size: PatchSize): String
 }
 
   enum PatchSize {
@@ -63,10 +63,6 @@ type LaunchConnection { # add this below the Query type as an additional type.
     message: String
     launches: [Launch]
 }
-  type Mission {
-    # ... with rest of schema
-    missionPatch(mission: String, size: PatchSize): String
-  }
 `;
 
 module.exports = typeDefs;
