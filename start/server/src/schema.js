@@ -39,6 +39,11 @@ const typeDefs = gql`
     cancelTrip(launchId: ID!): TripUpdateResponse!
     login(email: String): String # login token
 }
+  type TripUpdateResponse {
+    success: Boolean!
+    message: String
+    launches: [Launch]
+}
 `;
 
 module.exports = typeDefs;
