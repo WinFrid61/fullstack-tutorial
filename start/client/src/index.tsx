@@ -35,6 +35,17 @@ cache.writeData({
   },
 });
 
+const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
+function IsLoggedIn() {
+    const { data } = useQuery(IS_LOGGED_IN);
+    return data.isLoggedIn ? <Pages /> : <Login />;
+}
+
 injectStyles();
 ReactDOM.render(
   <ApolloProvider client={client}>
