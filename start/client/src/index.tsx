@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'; 
 import Pages from './pages';
 import injectStyles from './styles';
+import { resolvers, typeDefs } from './resolvers';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
@@ -20,6 +21,8 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
       authorization: localStorage.getItem('token'),
     }, 
   }),
+  typeDefs,
+  resolvers,
 });
 
 cache.writeData({
