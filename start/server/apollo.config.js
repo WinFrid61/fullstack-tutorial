@@ -1,5 +1,5 @@
 module.exports = {
   service: {
-    name: 'WinOrg' // the name of your graph in Apollo Graph Manager
+    name: 'SomeGoodGraph' // the name of your graph in Apollo Graph Manager
   }
 };
