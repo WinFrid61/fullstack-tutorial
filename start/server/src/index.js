@@ -26,14 +26,19 @@ const server = new ApolloServer({
     return { user: { ...user.dataValues } };
   },
   typeDefs,
-
   resolvers,
+  introspection: true,
+  playground: true,
   dataSources: () => ({
     launchAPI: new LaunchAPI(),
     userAPI: new UserAPI({ store })
   })
 });
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
+if (process.env.NODE_ENV !== 'test') {
+	server
+		.listen({ port: process.env.PORT || 4000 })
+		.then (({ url }) => {
+		console.log(`🚀 Server ready at ${url}`);
 });
+}
