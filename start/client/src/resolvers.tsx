@@ -10,14 +10,13 @@ export const typeDefs = gql`
     isLoggedIn: Boolean!
     cartItems: [ID!]!
   }
+  
+  extend type Launch {
+    isInCart: Boolean!
+  }
  
   extend type Mutation {
     addOrRemoveFromCart(id: ID!): [ID!]!
-  }
-`;
-export const schema = gql`
-  extend type Launch {
-    isInCart: Boolean!
   }
 `;
 
@@ -36,7 +35,7 @@ interface AppResolvers extends Resolvers {
   Mutation: ResolverMap;
 }
 
-export const resolvers = {
+export const resolvers: AppResolvers = {
 	Launch: {
     isInCart: (launch: LaunchTileTypes.LaunchTile, _, { cache }): boolean => {
       const queryResult = cache.readQuery<GetCartItemTypes.GetCartItems>({ 
@@ -48,13 +47,9 @@ export const resolvers = {
       return false;
     }
   },
-};
-	
   Mutation: {
     addOrRemoveFromCart: (_, { id }: { id: string }, { cache }): string[] => {
-      const queryResult = cache
-        .readQuery<GetCartItemTypes.GetCartItems, any>({ 
-          query: GET_CART_ITEMS 
+      const queryResult = cache.readQuery<GetCartItemTypes.GetCartItems>({ query: GET_CART_ITEMS 
         });
       if (queryResult) {
         const { cartItems } = queryResult;
