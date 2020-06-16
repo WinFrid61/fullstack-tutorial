@@ -1,3 +1,4 @@
+fieldName: (parent, args, context, info) => data;
 const { paginateResults } = require('./utils');
 
 module.exports = {
@@ -33,7 +34,24 @@ module.exports = {
     const user = await dataSources.userAPI.findOrCreateUser({ email });
     if (user) return Buffer.from(email).toString('base64');
   },
-  bookTrips: async (_, { launchIds }, { dataSources }) => {
+  bookTrips: async (_, { launchIds, cardToken }, { dataSources }) => {
+	let paymentStatus;
+	if (cardToken) {
+	const stripe = require('stripe')('sk_test_uV30Cpyh7P8A7PjaDDsxvAGm00j9pOIGvh');
+  try {
+	const Intent = await stripe.paymentIntents.create({
+	amount: 1000,
+	currency: 'usd',
+	// Verify your integration in this guide by including this parameter
+	payment_method: cardToken,
+	confirm: true,
+	error_on_requires_action: true
+	});
+  paymentStatus = Intent.status;
+  } catch (e) {
+  throw new Error(e)
+  }
+  	}
     const results = await dataSources.userAPI.bookTrips({ launchIds });
     const launches = await dataSources.launchAPI.getLaunchesByIds({
       launchIds,
@@ -48,6 +66,7 @@ module.exports = {
               id => !results.includes(id),
             )}`,
       launches,
+	  paymentStatus,
     };
   },
   cancelTrip: async (_, { launchId }, { dataSources }) => {

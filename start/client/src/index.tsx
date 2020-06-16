@@ -22,6 +22,8 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
     headers: {
       authorization: localStorage.getItem('token'),
+	  'client-name': 'Space Explorer [web]',
+      'client-version': '1.0.0',
     },
   }),
   typeDefs,
@@ -49,7 +51,7 @@ function IsLoggedIn() {
 injectStyles();
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Pages />
+    <IsLoggedIn />
   </ApolloProvider>, 
-  document.getElementById('root')
+  document.getElementById('root'),
 );

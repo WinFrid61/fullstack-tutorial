@@ -27,6 +27,9 @@ const server = new ApolloServer({
   },
   typeDefs,
   resolvers,
+  engine: {
+    apiKey: "service:SomeGoodGraph:HCj1wTVjShNAEQkHkebR2Q",
+  },
   introspection: true,
   playground: true,
   dataSources: () => ({

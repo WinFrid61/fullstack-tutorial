@@ -1,5 +1,6 @@
 module.exports = {
-  service: {
-    name: 'SomeGoodGraph' // the name of your graph in Apollo Graph Manager
-  }
+  client: {
+    name: 'Space Explorer [web]',
+    service: 'space-explorer',
+  },
 };

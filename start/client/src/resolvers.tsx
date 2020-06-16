@@ -55,7 +55,7 @@ export const resolvers: AppResolvers = {
         const { cartItems } = queryResult;
         const data = {
           cartItems: cartItems.includes(id)
-            ? cartItems.filter((i) => i !== id)
+            ? cartItems.filter((i: any) => i !== id)
             : [...cartItems, id],
         };
         cache.writeQuery({ query: GET_CART_ITEMS, data });

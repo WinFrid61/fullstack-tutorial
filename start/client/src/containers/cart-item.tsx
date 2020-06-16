@@ -15,6 +15,19 @@ export const GET_LAUNCH = gql`
   ${LAUNCH_TILE_DATA}
 `;
 
+export const GET_LAUNCH_DETAILS = gql`
+  query LaunchDetails($launchId: ID!) {
+    launch(id: $launchId) {
+      site
+      rocket {
+        type
+      }
+      ...LaunchTile
+    }
+  }
+  ${LAUNCH_TILE_DATA}
+`;
+
 interface CartItemProps extends LaunchDetailTypes.LaunchDetailsVariables {}
 
 const CartItem: React.FC<CartItemProps> = ({ launchId }) => {

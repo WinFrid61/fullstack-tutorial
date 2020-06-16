@@ -54,7 +54,7 @@ type LaunchConnection { # add this below the Query type as an additional type.
   launches: [Launch]!
 }
   type Mutation {
-    bookTrips(launchIds: [ID]!): TripUpdateResponse!
+    bookTrips(launchIds: [ID]!, cardToken: String): TripUpdateResponse!
     cancelTrip(launchId: ID!): TripUpdateResponse!
     login(email: String): String # login token
 }
@@ -62,6 +62,7 @@ type LaunchConnection { # add this below the Query type as an additional type.
     success: Boolean!
     message: String
     launches: [Launch]
+	paymentStatus: String
 }
 `;
 
